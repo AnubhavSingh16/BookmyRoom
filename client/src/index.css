@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    background-color: rgb(249, 251, 249);
+   
+}
+
+.bg-image {
+    background-image: url('C:\Users\User\Desktop\bookmyroom - Copy\client\public\city.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(2px); /* Apply blur effect */
+    height: 100%; /* Ensure it covers the entire container */
+    width: 100%;
+    position: absolute; /* Position it absolutely within the parent */
+    top: 0;
+    left: 0;
+    z-index: -1; /* Ensure it is behind the text content */
+  }
+
+ .map{
+    padding-left: 10%;
+    height: 250%;
+    width: 80%;
+    padding-top: 5px;
+    
+ }
+
+ .slice{
+    padding-left: 5%;
+    padding-right: 5%
+ }
+
+ .up{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: black;
+ }
+
+
+.swiper {
+  width: 100%;
+  height: 80%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  
+  display: block;
+  width: 40%;
+  height: 60%;
+  object-fit: cover;
+  justify-content: center;
+  margin: 0 auto;
+}
+
