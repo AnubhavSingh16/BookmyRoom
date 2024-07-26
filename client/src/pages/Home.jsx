@@ -7,14 +7,13 @@ import 'swiper/css/bundle';
 import ListingItem from '../components/ListingItem';
 import Testimonials from './Testimonials';
 
-
-
 SwiperCore.use([Navigation]);
 
 export default function Home() {
   const [offerListings, setOfferListings] = useState([]);
   const [saleListings, setSaleListings] = useState([]);
   const [rentListings, setRentListings] = useState([]);
+  const [isLoadingImage, setIsLoadingImage] = useState(true);
 
   useEffect(() => {
     const fetchOfferListings = async () => {
@@ -52,15 +51,32 @@ export default function Home() {
     fetchOfferListings();
   }, []);
 
+  const handleImageLoad = () => {
+    setIsLoadingImage(false);
+  };
+
   return (
     <div>
       {/* Top Section */}
       <div className="relative w-full h-screen">
-        <div className="absolute inset-0 bg-image"></div>{" "}
+        <div className="absolute inset-0">
+          {isLoadingImage && (
+            <div className="flex items-center justify-center h-full">
+              {/* Spinner or loading indicator */}
+              <div className="loader"></div>
+            </div>
+          )}
+          <img
+            src='/city.jpg'
+            alt="City"
+            onLoad={handleImageLoad}
+            className={`bg-image absolute inset-0 w-full h-full object-cover ${isLoadingImage ? 'hidden' : ''}`}
+          />
+        </div>
         {/* Background image with blur */}
         <div className="relative z-10 flex flex-col gap-6 p-10 px-3 w-full h-screen text-center">
           <h1 className="text-white font-bold font-mono text-3xl lg:text-6xl">
-            Find your next <span className="text-yellow-500">perfect</span>
+            Find  your <span className="text-yellow-500">perfect</span>
             <br />
             <span className="text-yellow-500">place</span> with ease
           </h1>
@@ -136,81 +152,75 @@ export default function Home() {
         </div>
       </div>
 
-      {/* listing results for offer, sale and rent */}
-     <section className=''>
-      <div className="max-w-6xl mx-auto p-3 flex flex-col gap-8 my-4 ">
-        {offerListings && offerListings.length > 0 && (
-          <div className="">
-            <div className="my-3">
-              <h2 className="text-4xl font-semibold text-slate-800 font-mono bg-yellow-600">
-                Recent offers
-              </h2>
-              <Link
-                className="text-1xl font-mono text-white hover:underline bg-gray-600 pl-3 pr-3 rounded-md "
-                to={"/search?offer=true"}
-              >
-                Show more offers
-              </Link>
+      {/* Listing results for offer, sale, and rent */}
+      <section>
+        <div className="max-w-6xl mx-auto p-3 flex flex-col gap-8 my-4">
+          {offerListings && offerListings.length > 0 && (
+            <div>
+              <div className="my-3">
+                <h2 className="text-4xl font-semibold text-slate-800 font-mono bg-yellow-600">
+                  Recent offers
+                </h2>
+                <Link
+                  className="text-1xl font-mono text-white hover:underline bg-gray-600 pl-3 pr-3 rounded-md"
+                  to={"/search?offer=true"}
+                >
+                  Show more offers
+                </Link>
+              </div>
+              <div className="flex flex-wrap gap-4">
+                {offerListings.map((listing) => (
+                  <ListingItem listing={listing} key={listing._id} />
+                ))}
+              </div>
             </div>
-            <div className="flex flex-wrap gap-4">
-              {offerListings.map((listing) => (
-                <ListingItem listing={listing} key={listing._id} />
-              ))}
+          )}
+          {rentListings && rentListings.length > 0 && (
+            <div>
+              <div className="my-3">
+                <h2 className="text-4xl font-semibold text-slate-700 font-mono">
+                  Recent places for rent
+                </h2>
+                <Link
+                  className="text-1xl font-mono text-white hover:underline bg-gray-600 pl-3 pr-3 rounded-md"
+                  to={"/search?type=rent"}
+                >
+                  Show more places for rent
+                </Link>
+              </div>
+              <div className="flex-wrap flex gap-4">
+                {rentListings.map((listing) => (
+                  <ListingItem listing={listing} key={listing._id} />
+                ))}
+              </div>
             </div>
-          </div>
-        )}
-        {rentListings && rentListings.length > 0 && (
-          <div className="">
-            <div className="my-3">
-              <h2 className="text-4xl font-semibold text-slate-700 font-mono">
-                Recent places for rent
-              </h2>
-              <Link
-                className="text-1xl font-mono text-white hover:underline bg-gray-600 pl-3 pr-3 rounded-md"
-                to={"/search?type=rent"}
-              >
-                Show more places for rent
-              </Link>
+          )}
+          {saleListings && saleListings.length > 0 && (
+            <div>
+              <div className="my-3">
+                <h2 className="text-4xl font-semibold text-slate-700 font-mono">
+                  Recent places for sale
+                </h2>
+                <Link
+                  className="text-1xl font-mono text-white hover:underline bg-gray-600 pl-3 pr-3 rounded-md"
+                  to={"/search?type=sale"}
+                >
+                  Show more places for sale
+                </Link>
+              </div>
+              <div className="flex flex-wrap gap-4">
+                {saleListings.map((listing) => (
+                  <ListingItem listing={listing} key={listing._id} />
+                ))}
+              </div>
             </div>
-            <div className="flex-wrap flex gap-4">
-              {rentListings.map((listing) => (
-                
-                <ListingItem listing={listing} key={listing._id} />
-              ))}
-            </div>
-          </div>
-        )}
-        {saleListings && saleListings.length > 0 && (
-          <div className="">
-            <div className="my-3">
-              <h2 className="text-4xl font-semibold text-slate-700 font-mono">
-                Recent places for sale
-              </h2>
-              <Link
-                className="text-1xl font-mono text-white hover:underline bg-gray-600 pl-3 pr-3 rounded-md"
-                to={"/search?type=sale"}
-              >
-                Show more places for sale
-              </Link>
-            </div>
-            <div className="flex flex-wrap gap-4">
-              {saleListings.map((listing) => (
-                <ListingItem listing={listing} key={listing._id} />
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
       </section>
       
-      <section className=''>
-          <Testimonials />
-      
+      <section>
+        <Testimonials />
       </section>
-      
-      
-
     </div>
-   
   );
 }
