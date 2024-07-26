@@ -15,6 +15,7 @@
     "esri-leaflet-geocoder": "^3.1.4",
     "firebase": "^10.3.1",
     "leaflet": "^1.9.4",
+    "mern-estate": "file:..",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^4.10.1",
