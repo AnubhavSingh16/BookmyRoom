@@ -129,7 +129,7 @@ export default function Search() {
   };
   return (
     <div className='flex flex-col md:flex-row '>
-      <div className='p-7  border-b-2 md:border-r-2 md:min-h-screen font-thin'>
+      <div className='p-7  border-b-2 md:border-r-2 md:min-h-screen font-thin bg-slate-200'>
         <form onSubmit={handleSubmit} className='flex flex-col gap-8'>
           <div className='flex items-center gap-2'>
             <label className='whitespace-nowrap font-semibold  '>
@@ -139,7 +139,7 @@ export default function Search() {
               type='text'
               id='searchTerm'
               placeholder='Search...'
-              className='border w-full bg-green-800 p-2 rounded-md flex items-center text-white shadow-lg'
+              className='border w-full bg-white p-2 rounded-md flex items-center text-white shadow-lg'
               value={sidebardata.searchTerm}
               onChange={handleChange}
             />
@@ -230,8 +230,8 @@ export default function Search() {
           
         </form>
       </div>
-      <div className='flex-1 font-thin bg-slate-700 '>
-        <h1 className='text-3xl font-mono font-semibold  border-b p-3 text-white mt-5'>
+      <div className='flex-1 font-thin bg-slate-800 '>
+        <h1 className='text-3xl font-mono font-semibold text-center border-b p-3 text-white mt-5'>
           Listing results:
         </h1>
         <div className='p-7 flex flex-wrap gap-4'>
